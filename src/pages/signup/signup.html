@@ -8,35 +8,27 @@
 
 
 <ion-content>
-  <form (submit)="doSignup()">
+  <form [formGroup]="signupForm" (submit)="doSignup()" novalidate>
     <ion-list>
 
       <ion-item>
-        <ion-label fixed>{{ 'NAME' | translate }}</ion-label>
-        <ion-input type="text" [(ngModel)]="account.name" name="name"></ion-input>
+        <ion-label floating>{{ 'EMAIL' | translate }}</ion-label>
+        <ion-input formControlName="email" type="email" [class.invalid]="!signupForm.controls.email.valid && blur"> </ion-input>
+      </ion-item>
+      <ion-item class="error-message" *ngIf="!signupForm.controls.email.valid && signupForm.controls.email.touched">
+        <p>Please enter a valid email.</p>
       </ion-item>
 
       <ion-item>
-        <ion-label fixed>{{ 'EMAIL' | translate }}</ion-label>
-        <ion-input type="email" [(ngModel)]="account.email" name="email"></ion-input>
+        <ion-label floating>{{ 'PASSWORD' | translate }}</ion-label>
+        <ion-input formControlName="password" type="password" [class.invalid]="!signupForm.controls.password.valid && blur"> </ion-input>
       </ion-item>
-
-      <!--
-      Want to add a Username? Here you go:
-
-      <ion-item>
-        <ion-label floating>Username</ion-label>
-        <ion-input type="text" [(ngModel)]="account.username" name="username"></ion-input>
-      </ion-item>
-      -->
-
-      <ion-item>
-        <ion-label fixed>{{ 'PASSWORD' | translate }}</ion-label>
-        <ion-input type="password" [(ngModel)]="account.password" name="password"></ion-input>
+      <ion-item class="error-message" *ngIf="!signupForm.controls.password.valid && signupForm.controls.password.touched">
+        <p>Your password needs more than 6 characters.</p>
       </ion-item>
 
       <div padding>
-        <button ion-button color="primary" block>{{ 'SIGNUP_BUTTON' | translate }}</button>
+        <button ion-button color="primary" block type="submit" [disabled]="!signupForm.valid">{{ 'SIGNUP_BUTTON' | translate }}</button>
       </div>
 
     </ion-list>

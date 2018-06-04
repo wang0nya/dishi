@@ -5,8 +5,12 @@ import { TranslateService } from '@ngx-translate/core';
 import { Config, Nav, Platform } from 'ionic-angular';
 
 import { FirstRunPage } from '../pages';
+import { MainPage } from '../pages';
 import { Settings } from '../providers';
 
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import { firebaseConfig } from './credentials';
 @Component({
   template: `<ion-menu [content]="content">
     <ion-header>
@@ -27,7 +31,7 @@ import { Settings } from '../providers';
   <ion-nav #content [root]="rootPage"></ion-nav>`
 })
 export class MyApp {
-  rootPage = FirstRunPage;
+  rootPage: any;
 
   @ViewChild(Nav) nav: Nav;
 
@@ -53,6 +57,15 @@ export class MyApp {
       this.splashScreen.hide();
     });
     this.initTranslate();
+    firebase.initializeApp(firebaseConfig);
+
+    // create the authentication listener
+    const unsubscribe = firebase.auth().onAuthStateChanged(user => { if (!user) {
+      this.rootPage = FirstRunPage;
+      unsubscribe(); }else{
+      this.rootPage = MainPage;
+      unsubscribe();
+    } });
   }
 
   initTranslate() {

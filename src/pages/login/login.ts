@@ -1,9 +1,22 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { IonicPage, NavController, ToastController } from 'ionic-angular';
+import { Alert, AlertController, IonicPage, Loading, LoadingController, NavController, ToastController } from 'ionic-angular';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { User } from '../../providers';
 import { MainPage } from '../';
+
+import { FormControl } from '@angular/forms';
+export class EmailValidator {
+  static isValid(control: FormControl) {
+    const re = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/ .test(
+      control.value
+    );
+    if (re) { return null;
+    }
+    return { invalidEmail: true
+    }; }
+}
 
 @IonicPage()
 @Component({
@@ -11,18 +24,21 @@ import { MainPage } from '../';
   templateUrl: 'login.html'
 })
 export class LoginPage {
-  // The account fields for the login form.
-  // If you're using the username field with or without email, make
-  // sure to add it to the type
-  account: { email: string, password: string };
 
   // Our translated text strings
   private loginErrorString: string;
-
+  public loading: Loading;
+  public loginForm: FormGroup;
   constructor(public navCtrl: NavController,
     public user: User,
-    public toastCtrl: ToastController,
-    public translateService: TranslateService) {
+    public toastCtrl: ToastController, public loadingCtrl: LoadingController, public alertCtrl: AlertController,
+    public translateService: TranslateService, formBuilder: FormBuilder){
+    this.loginForm = formBuilder.group({
+      email: [ '',
+        Validators.compose([Validators.required, EmailValidator.isValid]) ],
+      password: [ '',
+        Validators.compose([Validators.required, Validators.minLength(6)])
+      ] });
 
     this.translateService.get('LOGIN_ERROR').subscribe((value) => {
       this.loginErrorString = value;
@@ -30,18 +46,25 @@ export class LoginPage {
   }
 
   // Attempt to login in through our User service
-  doLogin() {
-    this.user.login(this.account).subscribe((resp) => {
-      this.navCtrl.push(MainPage);
-    }, (err) => {
-      this.navCtrl.push(MainPage);
-      // Unable to log in
-      let toast = this.toastCtrl.create({
-        message: this.loginErrorString,
-        duration: 3000,
-        position: 'top'
-      });
-      toast.present();
-    });
+  doLogin(): void {
+    if (!this.loginForm.valid) { console.log(
+      `Form is not valid yet, current value: ${this.loginForm.value}` );
+    }else{
+      const email = this.loginForm.value.email;
+      const password = this.loginForm.value.password;
+      this.user.loginUser(email, password).then( authData => {
+          this.loading.dismiss().then(() => { this.navCtrl.setRoot(MainPage);
+          });
+        },
+        error => {
+          this.loading.dismiss().then(() => {
+            const alert: Alert = this.alertCtrl.create({
+              message: error.message,
+              buttons: [{ text: 'Ok', role: 'cancel' }]
+            });
+            alert.present(); });
+        } );
+      this.loading = this.loadingCtrl.create();
+      this.loading.present(); }
   }
 }
