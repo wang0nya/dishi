@@ -13,8 +13,9 @@ export class User {
   signupUser(email: string, password: string): Promise<any> { return firebase
     .auth()
     .createUserWithEmailAndPassword(email, password) .then(newUserCredential => {
+      const [name] = email.split('@');
       firebase
-        .database() .ref(`/userProfile/${newUserCredential.user.uid}/email`) .set(email);
+        .database() .ref(`/userProfiles/${newUserCredential.user.uid}/userDetails`) .set({email, name});
     })
     .catch(error => { console.error(error); throw new Error(error);
     }); }

@@ -54,9 +54,16 @@ export class SignupPage {
         `Need to complete the form, current value: ${this.signupForm.value}`
       ); }else{
       const email: string = this.signupForm.value.email;
+      const [name] = email.split('@');
       const password: string = this.signupForm.value.password;
       this.user.signupUser(email, password).then( user => {
           this.loading.dismiss().then(() => { this.navCtrl.setRoot(MainPage);
+            let toast = this.toastCtrl.create({
+              message: `Welcome, ${name}`,
+              duration: 3000,
+              position: 'top'
+            });
+            toast.present();
           }); },
         error => { this.loading.dismiss().then(() => {
           const alert: Alert = this.alertCtrl.create({ message: error.message,

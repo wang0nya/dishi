@@ -51,9 +51,16 @@ export class LoginPage {
       `Form is not valid yet, current value: ${this.loginForm.value}` );
     }else{
       const email = this.loginForm.value.email;
+      const [name] = email.split('@');
       const password = this.loginForm.value.password;
       this.user.loginUser(email, password).then( authData => {
           this.loading.dismiss().then(() => { this.navCtrl.setRoot(MainPage);
+            let toast = this.toastCtrl.create({
+              message: `Welcome, ${name}`,
+              duration: 3000,
+              position: 'top'
+            });
+            toast.present();
           });
         },
         error => {
