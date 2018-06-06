@@ -1,19 +1,12 @@
 page-profile {
-  ion-item ion-label { margin: 0 !important;
-  }
-  ion-list { margin: 0;
-    padding: 0; }
-  ion-list-header { background-color: #ECECEC; margin: 0;
-    padding: 0;
-  }
-  ion-item { padding: 0 !important; } ion-datetime { padding-left: 3px !important; }
-  .item-inner {
-    border: none !important; padding: 0;
-  } .popover-content {
-      min-height: 0 !important;
-      max-height: 88px !important; }
-  .profile-popover { margin-top: -1px !important;
-  }
-  .placeholder-profile { color: #CCCCCC;
-  }
+ .avatar {
+   width: 150px;
+   height: 150px;
+   object-fit: cover;
+   border-radius: 50%;
+   vertical-align: middle;
+   display: block;
+   margin-left: auto;
+   margin-right: auto;
+ }
 }
