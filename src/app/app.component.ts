@@ -36,7 +36,7 @@ export class MyApp {
 
   pages: any[] = [
     { title: 'Profile', component: 'ProfilePage' },
-    { title: 'Content', component: 'ContentPage' },
+    { title: 'Recipes', component: 'ContentPage' },
     { title: 'Tutorial', component: 'TutorialPage' }
   ]
 
