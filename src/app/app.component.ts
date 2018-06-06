@@ -35,9 +35,9 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   pages: any[] = [
-    { title: 'Tutorial', component: 'TutorialPage' },
-    { title: 'Welcome', component: 'WelcomePage' },
-    { title: 'Content', component: 'ContentPage' }
+    { title: 'Profile', component: 'ProfilePage' },
+    { title: 'Content', component: 'ContentPage' },
+    { title: 'Tutorial', component: 'TutorialPage' }
   ]
 
   constructor(private translate: TranslateService, platform: Platform, private config: Config, private statusBar: StatusBar, private splashScreen: SplashScreen) {
