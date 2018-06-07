@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
 import { RecipeProvider } from "../../providers";
-import firebase from 'firebase';
-import { Reference } from '@firebase/database-types';
 import {RecipeDetailsPage} from "../recipe-details/recipe-details";
 
 @IonicPage()
@@ -11,11 +9,10 @@ import {RecipeDetailsPage} from "../recipe-details/recipe-details";
   templateUrl: 'content.html'
 })
 export class ContentPage {
-  public recipeListRef: Reference;
   public recipeList: Array<any>;
   constructor(public navCtrl: NavController, public recipeProvider: RecipeProvider) { }
   goToRecipeDetails(recipeId):void{
-    this.navCtrl.push(RecipeDetailsPage, {recipeId: recipeId});
+    this.navCtrl.push('RecipeDetailsPage', {recipeId: recipeId});
   }
   ionViewDidLoad() {
     this.recipeProvider.getRecipeList().on("value", recipeListSnapshot => {
