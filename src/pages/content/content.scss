@@ -16,5 +16,18 @@ page-content {
       padding: 20px; /* Some padding */
     }
 
+    .fadeIn {
+      animation-name: fadeIn;
+      animation-duration: 2s;
+    }
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
   }
 }

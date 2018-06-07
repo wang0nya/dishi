@@ -15,8 +15,7 @@
 </ion-header>
 
 <ion-content class="card-background-page" fullscreen>
-
-  <ion-card *ngFor="let recipe of recipeList" on-click="goToRecipeDetails(recipe.id)">
+  <ion-card *ngFor="let recipe of recipeList" on-click="goToRecipeDetails(recipe.id)" class="fadeIn">
     <img class="recipe-image" src="{{recipe?.imgurl}}" />
     <div class="card-text">
       {{recipe?.name}}
