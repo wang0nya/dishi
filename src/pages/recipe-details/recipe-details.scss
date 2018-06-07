@@ -1,3 +1,14 @@
 page-recipe-details {
+  .item-profile {
+    width: 100%;
+    background-position: center center;
+    height: 250px;
+    object-fit: cover;
+  }
 
+  .item-detail {
+    width: 100%;
+    background: white;
+    position: absolute;
+  }
 }

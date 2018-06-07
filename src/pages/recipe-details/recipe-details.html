@@ -7,12 +7,18 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>recipe-details</ion-title>
+    <ion-title>{{currentRecipe?.name}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content fullscreen>
+  <img src="{{currentRecipe?.imgurl}}" alt="recipe image" class="item-profile">
 
+  <div class="item-detail" padding>
+    <h5>{{currentRecipe?.description}}</h5><span><small>serves: {{currentRecipe?.serves}}</small></span>
+    <p>{{currentRecipe?.ingredients}}</p>
+    <p>{{currentRecipe?.method}}</p>
+  </div>
 </ion-content>
