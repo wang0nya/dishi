@@ -17,8 +17,13 @@
   <img src="{{currentRecipe?.imgurl}}" alt="recipe image" class="item-profile">
 
   <div class="item-detail" padding>
-    <h5>{{currentRecipe?.description}}</h5><span><small>serves: {{currentRecipe?.serves}}</small></span>
+    <p><strong>{{currentRecipe?.description}}</strong></p>
+    <span><ion-icon name="contacts"></ion-icon> {{currentRecipe?.serves}}</span>
+    <h6>What you'll need: </h6>
     <p>{{currentRecipe?.ingredients}}</p>
+    <h6>Method:</h6>
+    <div [innerHtml]="content">
     <p>{{currentRecipe?.method}}</p>
+    </div>
   </div>
 </ion-content>
