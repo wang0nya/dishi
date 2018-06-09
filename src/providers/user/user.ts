@@ -1,10 +1,14 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
+import { Reference } from '@firebase/database-types';
 
 export class User {
-
-  constructor() { }
+  public userListRef: Reference;
+  constructor() {
+    this.userListRef = firebase
+      .database().ref(`/userProfiles`);
+  }
 
   loginUser(email: string, password: string): Promise<any> {
     return firebase.auth().signInWithEmailAndPassword(email, password);

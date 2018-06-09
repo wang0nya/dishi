@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
 import { RecipeProvider } from "../../providers";
+import { User } from "../../providers";
 import marked from 'marked';
 import firebase from 'firebase';
 
@@ -21,7 +22,8 @@ export class RecipeDetailsPage {
   @ViewChild(Content) content: Content;
   public currentRecipe: any = {};
   public markdownText: any;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public recipeProvider: RecipeProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public recipeProvider: RecipeProvider,
+  public user: User) {
   }
 
   ionViewDidLoad() {
@@ -49,6 +51,27 @@ export class RecipeDetailsPage {
               this.recipeProvider.recipeListRef.child(`${recipeId}/likes/${user.uid}`)
                 .set({
                   liked:true
+                })
+            }
+          });
+      }
+    });
+  }
+
+  save(recipeId) {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.user.userListRef.child(`${user.uid}/saves/${recipeId}`)
+          .once("value",snapshot => {
+            const userData = snapshot.val();
+            if (userData){
+              console.log("exists!");
+            }
+            else {
+              console.log("saved!");
+              this.user.userListRef.child(`${user.uid}/saves/${recipeId}`)
+                .set({
+                  saved:true
                 })
             }
           });
