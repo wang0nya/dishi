@@ -22,4 +22,16 @@
     <img src="assets/img/avatar.jpg" alt="user-avatar" class="avatar">
     <p text-center="">{{userProfile?.name}}</p>
   </ion-list>
+  <ion-card>
+    <ion-card-header>
+      <ion-icon name="bookmark" color="danger"></ion-icon> Saved Recipes
+    </ion-card-header>
+
+    <ion-list>
+      <button ion-item *ngFor="let recipe of recipeList">
+        <ion-icon name="cart" item-start></ion-icon>
+        {{recipe?.id}}
+      </button>
+    </ion-list>
+  </ion-card>
 </ion-content>
