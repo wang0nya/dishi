@@ -35,7 +35,7 @@
       <button ion-fab><ion-icon name="logo-whatsapp" color="secondary"></ion-icon></button>
     </ion-fab-list>
     <ion-fab-list side="left">
-      <button ion-fab><ion-icon name="heart" color="danger"></ion-icon></button>
+      <button ion-fab (tap)="tapEvent(currentRecipe.id)"><ion-icon name="heart" color="danger"></ion-icon></button>
       <button ion-fab><ion-icon name="bookmark" color="danger"></ion-icon></button>
     </ion-fab-list>
   </ion-fab>

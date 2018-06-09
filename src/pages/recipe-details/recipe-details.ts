@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
 import { RecipeProvider } from "../../providers";
 import marked from 'marked';
+import firebase from 'firebase';
 
 /**
  * Generated class for the RecipeDetailsPage page.
@@ -32,6 +33,27 @@ export class RecipeDetailsPage {
       this.content = this.markdownText
       });
     console.log('ionViewDidLoad RecipeDetailsPage');
+  }
+
+  tapEvent(recipeId) {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.recipeProvider.recipeListRef.child(`${recipeId}/likes/${user.uid}`)
+          .once("value",snapshot => {
+            const userData = snapshot.val();
+            if (userData){
+              console.log("exists!");
+            }
+            else {
+              console.log("liked!");
+              this.recipeProvider.recipeListRef.child(`${recipeId}/likes/${user.uid}`)
+                .set({
+                  liked:true
+                })
+            }
+          });
+      }
+    });
   }
 
 }
