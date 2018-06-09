@@ -10,7 +10,10 @@ import {RecipeDetailsPage} from "../recipe-details/recipe-details";
 })
 export class ContentPage {
   public recipeList: Array<any>;
-  constructor(public navCtrl: NavController, public recipeProvider: RecipeProvider) { }
+  public toggled: boolean = false;
+  constructor(public navCtrl: NavController, public recipeProvider: RecipeProvider) {
+    this.toggled = false;
+  }
   goToRecipeDetails(recipeId):void{
     this.navCtrl.push('RecipeDetailsPage', {recipeId: recipeId});
   }
@@ -25,5 +28,8 @@ export class ContentPage {
         return false;
       });
     });
+  }
+  toggle(): void {
+    this.toggled = !this.toggled;
   }
 }

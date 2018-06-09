@@ -7,7 +7,7 @@
       Recipes
     </ion-title>
     <ion-buttons end>
-    <button ion-button>
+    <button ion-button *ngIf="!toggled" (click)="toggle()">
       <ion-icon name="search"></ion-icon>
     </button>
     </ion-buttons>
@@ -15,6 +15,12 @@
 </ion-header>
 
 <ion-content class="card-background-page" fullscreen>
+  <ion-searchbar
+    *ngIf="toggled"
+    [(ngModel)]="someValue"
+    (ionInput)="searchThis($event)"
+    [showCancelButton]="true">
+  </ion-searchbar>
   <ion-card *ngFor="let recipe of recipeList" on-click="goToRecipeDetails(recipe.id)" class="fadeIn">
     <img class="recipe-image" src="{{recipe?.imgurl}}" />
     <div class="card-text">
