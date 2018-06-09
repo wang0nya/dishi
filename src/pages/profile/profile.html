@@ -28,7 +28,7 @@
     </ion-card-header>
 
     <ion-list>
-      <button ion-item *ngFor="let recipe of recipeList">
+      <button ion-item *ngFor="let recipe of recipeList" on-click="goToRecipeDetails(recipe.id)">
         <ion-avatar item-start>
           <img src="{{recipe?.img}}" class="recipe-image">
         </ion-avatar>

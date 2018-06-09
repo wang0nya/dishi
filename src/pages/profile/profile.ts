@@ -39,6 +39,7 @@ export class ProfilePage {
               .database().ref(`/recipes/${snap.key}`);
             this.ref.once("value", (data) => {
               this.recipeList.push({
+                id: data.key,
                 name: data.val().name,
                 img: data.val().imgurl
               });
@@ -49,7 +50,9 @@ export class ProfilePage {
       });
     console.log('ionViewDidLoad ProfilePage');
   }
-
+  goToRecipeDetails(recipeId):void{
+    this.navCtrl.push('RecipeDetailsPage', {recipeId: recipeId});
+  }
   logOut(): void { this.user.logoutUser().then(() => {
     this.navCtrl.setRoot("WelcomePage"); });
   }
