@@ -29,8 +29,10 @@
 
     <ion-list>
       <button ion-item *ngFor="let recipe of recipeList">
-        <ion-icon name="cart" item-start></ion-icon>
-        {{recipe?.id}}
+        <ion-avatar item-start>
+          <img src="{{recipe?.img}}" class="recipe-image">
+        </ion-avatar>
+        {{recipe?.name}}
       </button>
     </ion-list>
   </ion-card>

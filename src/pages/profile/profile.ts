@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 import { ProfileProvider } from "../../providers";
 import { User } from '../../providers';
 import { RecipeProvider } from "../../providers";
+import firebase from 'firebase';
+import { Reference } from '@firebase/database-types';
 /**
  * Generated class for the ProfilePage page.
  *
@@ -18,8 +20,10 @@ import { RecipeProvider } from "../../providers";
 export class ProfilePage {
   public userProfile: any;
   public recipeList: Array<any>;
+  public recipeName: Array<any>;
+  public ref: Reference;
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController,
-              public user: User, public profileProvider: ProfileProvider) {
+              public user: User, public profileProvider: ProfileProvider, public recipeProvider: RecipeProvider) {
   }
 
   ionViewDidLoad() {
@@ -30,9 +34,17 @@ export class ProfilePage {
       .on("value", recipeListSnapshot => {
         this.recipeList = []; recipeListSnapshot.forEach(snap => {
           if(this.profileProvider.currentUser){
-            this.recipeList.push({
-              id: snap.key
-            });
+            // this.recipeList.push({
+            //   id: snap.key
+            // });
+            this.ref = firebase
+              .database().ref(`/recipes/${snap.key}`);
+            this.ref.once("value", (data) => {
+              this.recipeList.push({
+                name: data.val().name,
+                img: data.val().imgurl
+              });
+            })
           }
           return false;
         });
