@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams} from 'ionic-angular';
 import { ProfileProvider } from "../../providers";
 import { User } from '../../providers';
-import { RecipeProvider } from "../../providers";
 import firebase from 'firebase';
 import { Reference } from '@firebase/database-types';
 /**
@@ -20,10 +19,9 @@ import { Reference } from '@firebase/database-types';
 export class ProfilePage {
   public userProfile: any;
   public recipeList: Array<any>;
-  public recipeName: Array<any>;
   public ref: Reference;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController,
-              public user: User, public profileProvider: ProfileProvider, public recipeProvider: RecipeProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+              public user: User, public profileProvider: ProfileProvider) {
   }
 
   ionViewDidLoad() {
