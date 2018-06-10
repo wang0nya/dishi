@@ -11,6 +11,7 @@ import {RecipeDetailsPage} from "../recipe-details/recipe-details";
 export class ContentPage {
   public recipeList: Array<any>;
   public toggled: boolean = false;
+  public loadedRecipeList:Array<any>;
   constructor(public navCtrl: NavController, public recipeProvider: RecipeProvider) {
     this.toggled = false;
   }
@@ -27,9 +28,38 @@ export class ContentPage {
         });
         return false;
       });
+      this.loadedRecipeList = this.recipeList;
     });
   }
   toggle(): void {
     this.toggled = !this.toggled;
+  }
+  initializeItems(): void {
+    this.recipeList = this.loadedRecipeList;
+  }
+  getItems(searchbar) {
+    // Reset items back to all of the items
+    this.initializeItems();
+
+    // set q to the value of the searchbar
+    var q = searchbar.srcElement.value;
+
+
+    // if the value is an empty string don't filter the items
+    if (!q) {
+      return;
+    }
+
+    this.recipeList = this.recipeList.filter((v) => {
+      if(v.name && q) {
+        if (v.name.toLowerCase().indexOf(q.toLowerCase()) > -1) {
+          return true;
+        }
+        return false;
+      }
+    });
+
+    console.log(q, this.recipeList.length);
+
   }
 }

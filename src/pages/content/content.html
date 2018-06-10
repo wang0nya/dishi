@@ -17,8 +17,7 @@
 <ion-content class="card-background-page" fullscreen>
   <ion-searchbar
     *ngIf="toggled"
-    [(ngModel)]="someValue"
-    (ionInput)="searchThis($event)"
+    (ionInput)="getItems($event)"
     [showCancelButton]="true">
   </ion-searchbar>
   <ion-card *ngFor="let recipe of recipeList" on-click="goToRecipeDetails(recipe.id)" class="fadeIn">
