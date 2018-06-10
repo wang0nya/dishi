@@ -4,6 +4,7 @@ import { RecipeProvider } from "../../providers";
 import { User } from "../../providers";
 import marked from 'marked';
 import firebase from 'firebase';
+import { SocialSharing } from '@ionic-native/social-sharing';
 
 /**
  * Generated class for the RecipeDetailsPage page.
@@ -23,7 +24,7 @@ export class RecipeDetailsPage {
   public currentRecipe: any = {};
   public markdownText: any;
   constructor(public navCtrl: NavController, public navParams: NavParams, public recipeProvider: RecipeProvider,
-  public user: User) {
+  public user: User, private socialSharing: SocialSharing) {
   }
 
   ionViewDidLoad() {
@@ -79,4 +80,17 @@ export class RecipeDetailsPage {
     });
   }
 
+//  social sharing
+  whatsappShare(index){
+    const msg  = 'shared by recipes app';
+    this.socialSharing.shareViaWhatsApp(msg, null, null);
+  }
+  twitterShare(index){
+    const msg  = 'shared by recipes app';
+    this.socialSharing.shareViaTwitter(msg, null, null);
+  }
+  facebookShare(index){
+    const msg  = 'shared by recipes app';
+    this.socialSharing.shareViaFacebook(msg, null, null);
+  }
 }

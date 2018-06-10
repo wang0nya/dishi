@@ -30,9 +30,9 @@
   <ion-fab bottom right >
     <button ion-fab color="danger"><ion-icon name="restaurant"></ion-icon></button>
     <ion-fab-list side="top">
-      <button ion-fab><ion-icon name="logo-facebook" color="primary"></ion-icon></button>
-      <button ion-fab><ion-icon name="logo-twitter" color="twitter"></ion-icon></button>
-      <button ion-fab><ion-icon name="logo-whatsapp" color="secondary"></ion-icon></button>
+      <button ion-fab><ion-icon name="logo-facebook" color="primary" onclick="facebookShare()"></ion-icon></button>
+      <button ion-fab><ion-icon name="logo-twitter" color="twitter" onclick="twitterShare()"></ion-icon></button>
+      <button ion-fab><ion-icon name="logo-whatsapp" color="secondary" onclick="whatsappShare()"></ion-icon></button>
     </ion-fab-list>
     <ion-fab-list side="left">
       <button ion-fab (tap)="tapEvent(currentRecipe.id)"><ion-icon name="heart" color="danger"></ion-icon></button>

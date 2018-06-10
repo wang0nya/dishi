@@ -14,6 +14,8 @@ import { MyApp } from './app.component';
 import { ProfileProvider } from '../providers';
 import { RecipeProvider } from '../providers';
 
+import { SocialSharing } from "@ionic-native/social-sharing";
+
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
 export function createTranslateLoader(http: HttpClient) {
@@ -50,7 +52,8 @@ export function createTranslateLoader(http: HttpClient) {
     // Keep this to enable Ionic's runtime error handling during development
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     ProfileProvider,
-    RecipeProvider
+    RecipeProvider,
+    SocialSharing
   ]
 })
 export class AppModule { }
