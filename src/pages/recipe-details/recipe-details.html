@@ -21,6 +21,9 @@
     <span><ion-icon name="contacts"></ion-icon> {{currentRecipe?.serves}}</span>
     <h6>What you'll need: </h6>
     <p>{{currentRecipe?.ingredients}}</p>
+    <button ion-button color="secondary" (click)="openModal(currentRecipe.id)">
+      Analyze your meal
+    </button>
     <h6>Method:</h6>
     <div [innerHtml]="content">
     <p>{{currentRecipe?.method}}</p>

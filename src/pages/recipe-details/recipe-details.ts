@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Content, ModalController } from 'ionic-angular';
 import { RecipeProvider } from "../../providers";
 import { User } from "../../providers";
 import marked from 'marked';
@@ -24,7 +24,7 @@ export class RecipeDetailsPage {
   public currentRecipe: any = {};
   public markdownText: any;
   constructor(public navCtrl: NavController, public navParams: NavParams, public recipeProvider: RecipeProvider,
-  public user: User, private socialSharing: SocialSharing) {
+  public user: User, private socialSharing: SocialSharing, public modalCtrl: ModalController) {
   }
 
   ionViewDidLoad() {
@@ -36,6 +36,12 @@ export class RecipeDetailsPage {
       this.content = this.markdownText
       });
     console.log('ionViewDidLoad RecipeDetailsPage');
+  }
+
+  openModal(recipeId) {
+    var data = { recipeId: recipeId };
+    var modalPage = this.modalCtrl.create('AnalyzePage', data);
+    modalPage.present();
   }
 
   tapEvent(recipeId) {
