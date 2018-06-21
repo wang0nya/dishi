@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController,  LoadingController, Loading } from 'ionic-angular';
 import { RecipeProvider } from "../../providers";
 import { Api } from "../../providers";
 import { Chart } from 'chart.js';
@@ -23,8 +23,9 @@ export class AnalyzePage {
   data: any;
   ingredients: any;
   serving: any;
+  public loading: Loading;
   constructor(public navCtrl: NavController, public viewCtrl : ViewController ,public navParams: NavParams
-    , public recipeProvider: RecipeProvider, public api: Api) {
+    , public recipeProvider: RecipeProvider, public api: Api, public loadingCtrl: LoadingController) {
     //
   }
 
@@ -43,6 +44,7 @@ export class AnalyzePage {
     this.serving = encodeURIComponent(this.currentRecipe.serves);
     this.api.get(this.ingredients, this.serving)
       .then(data => {
+        this.loading.dismiss();
         this.data = data;
         this.barChart = new Chart(this.barCanvas.nativeElement, {
 
@@ -89,6 +91,8 @@ export class AnalyzePage {
 
         });
       });
+    this.loading = this.loadingCtrl.create();
+    this.loading.present();
   }
 
   closeModal(){
