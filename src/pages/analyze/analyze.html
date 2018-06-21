@@ -15,10 +15,12 @@
 
 <ion-content fullscreen>
   <img src="{{currentRecipe?.imgurl}}" alt="recipe image" class="item-profile">
-  <div class="item-detail" padding>
-    <p><ion-icon name="pricetag"></ion-icon> {{data?.dietLabels}}</p>
-    <p><ion-icon name="pricetag"></ion-icon> {{data?.healthLabels}}</p>
-    <button ion-button color="danger" (click)="closeModal()">
+  <div class="item-detail row" padding>
+    <div class = "col" text-center><ion-icon name="flame"></ion-icon> {{data?.calories}} kcal</div>
+    <div class = "col" text-center><ion-icon name="list-box"></ion-icon> {{data?.totalDaily.ENERC_KCAL.quantity.toFixed(2)}} %</div>
+    <div class = "col" text-center><ion-icon name="contacts"></ion-icon> {{currentRecipe?.serves}}</div>
+    <canvas #barCanvas></canvas>
+    <button ion-button color="danger" block (click)="closeModal()">
       close
     </button>
   </div>
