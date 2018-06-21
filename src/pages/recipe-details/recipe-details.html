@@ -20,7 +20,7 @@
     <p><strong>{{currentRecipe?.description}}</strong></p>
     <h6>What you'll need: </h6>
     <p>{{currentRecipe?.ingredients}}</p>
-    <button ion-button color="secondary" (click)="openModal(currentRecipe.id)">
+    <button ion-button color="secondary" block (click)="openModal(currentRecipe.id)">
       Analyze your meal
     </button>
     <h6>Method:</h6>
