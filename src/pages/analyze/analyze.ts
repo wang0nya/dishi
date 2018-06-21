@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { RecipeProvider } from "../../providers";
+import { Api } from "../../providers";
 
 /**
  * Generated class for the AnalyzePage page.
@@ -16,8 +17,12 @@ import { RecipeProvider } from "../../providers";
 })
 export class AnalyzePage {
   public currentRecipe: any = {};
+  data: any;
+  ingredients: any;
+  serving: any;
   constructor(public navCtrl: NavController, public viewCtrl : ViewController ,public navParams: NavParams
-    , public recipeProvider: RecipeProvider) {
+    , public recipeProvider: RecipeProvider, public api: Api) {
+    //
   }
 
   ionViewDidLoad() {
@@ -26,7 +31,18 @@ export class AnalyzePage {
       this.currentRecipe = recipeSnapshot.val();
       this.currentRecipe.id = recipeSnapshot.key;
     });
+    this.getData();
     console.log('ionViewDidLoad AnalyzePage');
+  }
+
+  getData() {
+    this.ingredients = encodeURIComponent(this.currentRecipe.ingredients);
+    this.serving = encodeURIComponent(this.currentRecipe.serving);
+    this.api.get(this.ingredients, this.serving)
+      .then(data => {
+        this.data = data;
+        console.log('data ==>',this.data);
+      });
   }
 
   closeModal(){

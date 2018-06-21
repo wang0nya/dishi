@@ -13,8 +13,13 @@
 </ion-header>
 
 
-<ion-content padding>
-  <button ion-button color="danger" (click)="closeModal()">
-    close
-  </button>
+<ion-content fullscreen>
+  <img src="{{currentRecipe?.imgurl}}" alt="recipe image" class="item-profile">
+  <div class="item-detail" padding>
+    <p><ion-icon name="pricetag"></ion-icon> {{data?.dietLabels}}</p>
+    <p><ion-icon name="pricetag"></ion-icon> {{data?.healthLabels}}</p>
+    <button ion-button color="danger" (click)="closeModal()">
+      close
+    </button>
+  </div>
 </ion-content>

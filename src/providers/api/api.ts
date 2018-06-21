@@ -6,27 +6,20 @@ import { Injectable } from '@angular/core';
  */
 @Injectable()
 export class Api {
-  url: string = 'https://example.com/api/v1';
+  url: string = 'https://api.edamam.com/api/nutrition-data?app_id=7dbe9972&app_key=\n' +
+    '868bb09c2ca0acdd9ca9c44a6fdb5a92';
 
   constructor(public http: HttpClient) {
   }
 
-  get(endpoint: string, params?: any, reqOpts?: any) {
-    if (!reqOpts) {
-      reqOpts = {
-        params: new HttpParams()
-      };
-    }
-
-    // Support easy query params for GET requests
-    if (params) {
-      reqOpts.params = new HttpParams();
-      for (let k in params) {
-        reqOpts.params = reqOpts.params.set(k, params[k]);
-      }
-    }
-
-    return this.http.get(this.url + '/' + endpoint, reqOpts);
+  get(ingredients, serving) {
+    return new Promise(resolve => {
+      this.http.get(this.url + '&ingr=' + ingredients + '&serving=' + serving).subscribe(data => {
+        resolve(data);
+      }, err => {
+        console.log(err);
+      });
+    });
   }
 
   post(endpoint: string, body: any, reqOpts?: any) {
