@@ -16,6 +16,9 @@ import { RecipeProvider } from '../providers';
 
 import { SocialSharing } from "@ionic-native/social-sharing";
 
+import { CacheModule } from 'ionic-cache';
+import { HttpModule } from '@angular/http';
+
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
 export function createTranslateLoader(http: HttpClient) {
@@ -37,7 +40,9 @@ export function createTranslateLoader(http: HttpClient) {
       }
     }),
     IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    HttpModule,
+    CacheModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [

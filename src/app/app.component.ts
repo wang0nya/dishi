@@ -10,6 +10,8 @@ import { MainPage } from '../pages';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import { firebaseConfig } from './credentials';
+import { CacheService } from "ionic-cache";
+
 @Component({
   template: `<ion-menu [content]="content">
     <ion-header>
@@ -40,12 +42,18 @@ export class MyApp {
     { title: 'Tutorial', component: 'TutorialPage' }
   ]
 
-  constructor(private translate: TranslateService, platform: Platform, private config: Config, private statusBar: StatusBar, private splashScreen: SplashScreen) {
+  constructor(private translate: TranslateService, platform: Platform, cache: CacheService, private config: Config, private statusBar: StatusBar, private splashScreen: SplashScreen) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+
+      // Set TTL to 1h
+      cache.setDefaultTTL(60 * 60);
+      // Keep our cached results when device is offline!
+      cache.setOfflineInvalidate(false);
+
     });
     this.initTranslate();
     firebase.initializeApp(firebaseConfig);
